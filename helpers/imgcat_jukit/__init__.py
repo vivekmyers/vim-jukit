@@ -21,7 +21,7 @@ def _store_img_for_ipynb(img_hex_code):
     sys.stdout._wrapped_stdout.write("<-- JUKIT_PLOT_PLACEHOLDER -->\n")
     sys.stdout.add_jukit_plot(b64)
 
-
+    
 class FigureManagerImgcat(FigureManagerBase):
     def show(self):
         if hasattr(sys.stdout, "add_jukit_plot"):
