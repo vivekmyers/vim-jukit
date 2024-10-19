@@ -132,12 +132,12 @@ fun! jukit#send#selection() abort
     endif
 
     let selection = jukit#util#get_visual_selection()
-    if g:jukit_save_output
+    if g:jukit_save_output && match(selection, '|%%--%%|') > -1
         let md_start = escape(jukit#util#get_lang_info()[0], '"')
         let param = g:jukit_ipy_opts . ' -s' . ' --md_cell_start=' . md_start
         call s:send_to_split('%jukit_run_split', selection, 1, param)
     else
-        call s:send_to_split('%jukit_run_split', selection, 0)
+        call s:send_to_split('%jukit_run', selection, 0)
     endif
 endfun
 

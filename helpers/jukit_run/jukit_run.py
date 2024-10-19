@@ -263,6 +263,8 @@ class JukitRun(TerminalMagics):
                         ),
                     )
                     p.start()
+            error = '[0;31m--------------' in captured_out
+            self.capture_error = error
 
     @line_magic
     def jukit_run(self, cmd_param: Optional[str] = None):
@@ -308,11 +310,15 @@ class JukitRun(TerminalMagics):
         cell_ids2 = re.findall(rf"{re.escape(HEADER)} <.*\|(.*)>", all_cmd)
         cell_ids = [cell_ids1[0]] + cell_ids2
 
+        self.capture_error = False
+
         for i, (cell, id_) in enumerate(zip(cells, cell_ids)):
             p = param + " -p" * (i > 0) + f" --cell_id={id_}"
             self.jukit_run(cmd_param=(cell, p))
             if i > 0:
                 self.shell.execution_count += 1
+            if self.capture_error:
+                break
 
     @monitor_excount_dec
     @line_magic
