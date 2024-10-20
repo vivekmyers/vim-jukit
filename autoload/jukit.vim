@@ -141,7 +141,7 @@ fun! jukit#place_markdown_cell_signs(force) abort
 
     call sign_unplace('jukit_textcells', {'buffer': bufnr('%', 1)})
 
-    silent exe 'g/' . s:md_start_pattern
+    silent exe 'keepp g/' . s:md_start_pattern
         \ . "/call s:add_signs_in_region(search('" . s:md_end_pattern . "', 'n'))"
 
     call winrestview(save_view)
