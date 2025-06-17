@@ -18,8 +18,7 @@ if g:jukit_terminal == 'kitty'
 endif
 
 if g:jukit_ipython
-    let s:ipython_version = system(g:jukit_shell_cmd . ' --version')
-    let s:ipython_version = matchstr(s:ipython_version, '.\{-}\zs[0-9\.]\{1,}')
+    let s:ipython_version = systemlist(g:jukit_shell_cmd . ' --version')[-1]
     let s:v_split = split(s:ipython_version, '\.')
     if !jukit#util#is_valid_version(s:v_split, g:jukit_required_ipython_version)
         echom '[vim-jukit] Insufficient ipython version! (Required version >= '

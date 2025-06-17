@@ -273,7 +273,7 @@ fun! jukit#util#is_valid_version(vcur, vreq) abort
         echom '[vim-jukit] invalid version number encountered:'
         echom a:vcur
         echom a:vreq
-        return 1 " by default give benefit of the doubt if a version number not in the expected format
+        return 0 
     endif
 
     let valid1 = a:vcur[0] >= a:vreq[0]
