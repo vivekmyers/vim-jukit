@@ -181,22 +181,16 @@ fun! jukit#splits#_build_shell_cmd(...) abort
     let mpl_style = jukit#splits#_get_mpl_style_file()
     let is_outhist = a:0 > 0 && a:1 == 'outhist'
 
-    if !is_outhist
-        if g:_jukit_is_windows
-            let g:_jukit_python = stridx(split(g:jukit_shell_cmd, '/')[-1], 'python') >= 0
-            let g:jukit_ipython = stridx(split(g:jukit_shell_cmd, '/')[-1], 'ipython') >= 0
-        else
-            let g:_jukit_python = stridx(split(g:jukit_shell_cmd, '\')[-1], 'python') >= 0
-            let g:jukit_ipython = stridx(split(g:jukit_shell_cmd, '\')[-1], 'ipython') >= 0
-        endif
-        let use_py = g:_jukit_python
-        let use_ipy = g:jukit_ipython
-        let shell_cmd = g:jukit_shell_cmd
+    if g:_jukit_is_windows
+        let g:_jukit_python = stridx(split(g:jukit_shell_cmd, '/')[-1], 'python') >= 0
+        let g:jukit_ipython = stridx(split(g:jukit_shell_cmd, '/')[-1], 'ipython') >= 0
     else
-        let use_py = 1
-        let use_ipy = 1
-        let shell_cmd = 'ipython3'
+        let g:_jukit_python = stridx(split(g:jukit_shell_cmd, '\')[-1], 'python') >= 0
+        let g:jukit_ipython = stridx(split(g:jukit_shell_cmd, '\')[-1], 'ipython') >= 0
     endif
+    let use_py = g:_jukit_python
+    let use_ipy = g:jukit_ipython
+    let shell_cmd = g:jukit_shell_cmd
 
     if !use_py
         return g:jukit_shell_cmd
