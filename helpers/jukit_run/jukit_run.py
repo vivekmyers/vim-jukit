@@ -263,7 +263,7 @@ class JukitRun(TerminalMagics):
                         ),
                     )
                     p.start()
-            error = '[0;31m--------------' in captured_out
+            error = '31m--------------' in captured_out
             self.capture_error = error
 
     @line_magic
