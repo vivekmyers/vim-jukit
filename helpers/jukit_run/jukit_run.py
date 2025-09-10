@@ -263,7 +263,12 @@ class JukitRun(TerminalMagics):
                         ),
                     )
                     p.start()
-            error = '31m--------------' in captured_out
+            error = any(
+                "31m--------------" in line
+                or "Traceback (most recent call last)" in line
+                or re.match(r"\S*\W\w+Error\W", line)
+                for line in captured_out.split("\n")
+            )
             self.capture_error = error
 
     @line_magic
